@@ -38,3 +38,5 @@ This app requires a config file named ".env" that has the following variable:
 3- or by using docker-compose to run the whole app with multiple containers:
 
     docker-compose up
+
+Live Version: http://rebrand.ly/humblegucteam
