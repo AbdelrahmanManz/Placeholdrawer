@@ -26,7 +26,7 @@
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
 }</style>
-
+<title>PlaceHoldrawer</title>
 </head>
 <body>
 
@@ -69,7 +69,7 @@ function doSomething(w,h) {
 function on() {
     document.getElementById("text").innerHTML = "Snippet Copied to Clipboard";
     document.getElementById("overlay").style.display = "block";
-    fallbackCopyTextToClipboard("<img src='"+(window.location.href).substring(0, (window.location.href).length - 1)+`${link}`+"'/>");
+    fallbackCopyTextToClipboard("<img src='"+(window.location.href).substring(0, (window.location.href).length - 1)+`${link}`+"'>");
 }
 
 function off() {

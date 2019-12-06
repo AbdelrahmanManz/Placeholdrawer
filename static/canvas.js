@@ -212,7 +212,8 @@ window.addEventListener('load', function () {
         return;
         }
       }
-        document.getElementById("wow").innerHTML += `<img style='position: absolute;top: ${y+46};left: ${x+8};margin: auto;' src='/cage/${w}/${h}'>`}
+
+        document.getElementById("wow").innerHTML += `<img style='position: absolute;top: ${y+(0.061*window.innerHeight)};left: ${x+(0.0052*window.innerWidth)};margin: auto;' src='/cage/${w}/${h}'>`}
         link = `/cage/${w}/${h}`;
    };
   };
