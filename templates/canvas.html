@@ -1,0 +1,109 @@
+<html>
+<head>
+    <style type="text/css">#container { position: relative; }
+      #imageView { border: 1px solid #000; }
+      #imageTemp { position: absolute; top: 1px; left: 1px; }
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}</style>
+<title>PlaceHoldrawer</title>
+</head>
+<body>
+
+<center>
+    <div style="display: inline-block;">
+<form onsubmit="return doSomething(width.value,height.value);">
+  Width:
+  <input type="text" name="width" value="100">
+  Height:
+  <input type="text" name="height" value="100">
+    <button type="submit" value="Submit">Submit</button>
+</form>
+    </div>
+        <div style="display: inline-block;">
+     <button onclick="on();return;">Copy HTML Snippet</button>
+</div>
+    </center>
+<div id="wow"></div>
+<p hidden><label>Drawing tool: <select id="dtool"><option value="rect" selected>Rectangle</option>
+   </select></label></p>
+<div id="container"><canvas id="imageView" width="1500" height="680"><p>Unfortunately, your browser is currently
+    unsupported by our web application. We are sorry for the inconvenience. Please use one of the supported browsers
+    listed below, or draw the image you want using an offline tool.</p><p>Supported browsers:
+    <a href="http://www.opera.com">Opera</a>, <a href="http://www.mozilla.com">Firefox</a>,
+    <a href="http://www.apple.com/safari">Safari</a>, and <a href="http://www.konqueror.org">Konqueror</a>.</p>
+    </canvas><canvas id="imageTemp" width="1500" height="680"></canvas></div>
+<div id="overlay" onclick="off()">
+  <div id="text"></div>
+</div>
+<script type="text/javascript" src="/static/canvas.js"></script>
+<script>
+function doSomething(w,h) {
+    document.getElementById("wow").innerHTML += `<img style='position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);' src='/cage/${w}/${h}'>`;
+    link = `/cage/${w}/${h}`;
+    return false;
+}
+function on() {
+    document.getElementById("text").innerHTML = "Snippet Copied to Clipboard";
+    document.getElementById("overlay").style.display = "block";
+    fallbackCopyTextToClipboard("<img src='"+(window.location.href).substring(0, (window.location.href).length - 1)+`${link}`+"'>");
+}
+
+function off() {
+  document.getElementById("overlay").style.display = "none";
+}
+function fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position="fixed";  //avoid scrolling to bottom
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Fallback: Copying text command was ' + msg);
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+      }
+
+      document.body.removeChild(textArea);
+    }
+    function copyTextToClipboard(text) {
+      if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(text);
+        return;
+      }
+      navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+      }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+      });
+    }
+</script>
+</body>
+</html>
