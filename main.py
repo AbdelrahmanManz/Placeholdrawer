@@ -33,8 +33,8 @@ def home():
 def cage(w,h):
     cachechk = cache.find_one({"size": f'{w},{h}'})
     if cachechk is None:
-        response = requests.get(f'https://www.placecage.com/{w}/{h}', stream=True)
-        # response = requests.get(f'https://www.placeimg.com/{w}/{h}/any', stream=True)
+        #response = requests.get(f'https://www.placecage.com/{w}/{h}', stream=True)
+        response = requests.get(f'https://www.placeimg.com/{w}/{h}/any', stream=True)
         with open('img.png', 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         t1 = Thread(target=cacheinsert, args=(w,h,))
